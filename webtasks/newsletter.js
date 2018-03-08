@@ -34,6 +34,7 @@ app.get('/subscribers', function(req,res){
 });
 
 app.post('/subscribe', function(req, res){
+  console.log(req.webtaskContext.params);
   var email = req.webtaskContext.body.email;
 
   if(email){
