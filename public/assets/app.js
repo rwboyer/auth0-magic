@@ -1,4 +1,4 @@
-var lock = new Auth0Lock('YOUR-AUTH0-CLIENT-ID', 'YOUR-AUTH0-DOMAIN.auth0.com');
+var lock = new Auth0Lock('acb7agRMMzlIyqzW2KVYEYvdWdaqUe4H', 'magic-car-wash.auth0.com');
 
 $(document).ready(function(){
   updateAuthenticationStatus();
@@ -39,7 +39,7 @@ function loadAdmin(){
     if(localStorage.getItem('token')){
       $.ajax({
         type : 'GET',
-        url : 'https://webtask.it.auth0.com/api/run/wt-kukicadnan-gmail_com-0/newsletter-complex/subscribers?webtask_no_cache=1',
+        url : 'https://wt-2d7b89d6f6ec895c908ace60bdebb4ea-0.run.webtask.io/newsletter/subscribers?webtask_no_cache=1',
         headers : {
           Authorization : 'Bearer ' + localStorage.getItem('token')
         }
