@@ -57,7 +57,7 @@ function loadAdmin(){
 $('#newsletter').submit(function(e){
   $.ajax({
     type : 'POST',
-    url : 'https://webtask.it.auth0.com/api/run/wt-kukicadnan-gmail_com-0/newsletter-complex/subscribe?webtask_no_cache=1',
+    url : 'https://wt-2d7b89d6f6ec895c908ace60bdebb4ea-0.run.webtask.io/newsletter/subscribe?webtask_no_cache=1',
     data : {email : $('#email').val()},
     dataType    : 'json',
     headers : {
