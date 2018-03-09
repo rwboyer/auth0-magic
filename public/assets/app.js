@@ -31,6 +31,11 @@ $('document').ready(function() {
     logout();
   });
 
+  $("body").on("click", "#subscribers h4 a", function(e) {
+    e.preventDefault();
+    alert($(this).attr('id'));
+  });
+
   function setSession(authResult) {
     // Set the time that the access token will expire at
     var expiresAt = JSON.stringify(
@@ -90,4 +95,48 @@ $('document').ready(function() {
 
   displayButtons();
   handleAuthentication();
+
+  function loadAdmin(){
+    if(window.location.pathname == '/admin/'){
+      //if(localStorage.getItem('id_token')){
+        $.ajax({
+          type : 'GET',
+          url : 'https://wt-2d7b89d6f6ec895c908ace60bdebb4ea-0.run.webtask.io/newsletter/subscribers?webtask_no_cache=1',
+          headers : {
+            Authorization : 'Bearer ' + localStorage.getItem('id_token')
+          }
+        }).done(function(data) {
+          for(var i = 0; i < data.length; i++){
+            $('#subscribers').append('<h4>' + '<a id="' + data[i].coupon_code + '">' + data[i].coupon_code +  "</a> / " + data[i].exp_date + '</h4>');
+          }
+        });
+      //} else {
+        //window.location = '/';
+      //}
+    }
+  }
+  
+  loadAdmin();
+
+  $('#newsletter').submit(function(e){
+    $.ajax({
+      type : 'POST',
+      url : 'https://wt-2d7b89d6f6ec895c908ace60bdebb4ea-0.run.webtask.io/newsletter/subscribe?webtask_no_cache=1',
+      data : {email : $('#email').val()},
+      dataType    : 'json',
+      headers : {
+        Authorization : 'Bearer ' + localStorage.getItem('token')
+      }
+    }).done(function(data) {
+      if(data.statusCode == 200){
+        $('#newsletter').hide();
+        $('#response').append('<div class="alert alert-success">'+ data.message +'</div>')
+      } else {
+        $('#newsletter').hide();
+        $('#response').append('<div class="alert alert-danger">'+ data.message +'</div>')
+      }
+    });
+    e.preventDefault();
+  });  
+  
 });
